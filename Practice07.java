@@ -1,31 +1,37 @@
 package codinginterview;
 
-import java.util.Stack;
+class TreeNode {
+    private int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) {
+        val = x;
+    }
+}
 
 public class Practice07 {
-    Stack<Integer> stack1 = new Stack<Integer>();
-    Stack<Integer> stack2 = new Stack<Integer>();
-
-    public void push(int node) {
-        stack1.push(node);
+    private TreeNode reConstructBinaryTree(int[] pre, int[] in) {
+        return reConstructBinaryTree(pre,0,pre.length-1,in,0,in.length-1);
     }
 
-    public int pop() {
-        if(stack2.empty()){
-            while (!stack1.empty()){
-                stack2.push(stack1.pop());
+    private TreeNode reConstructBinaryTree(int [] pre,int startPre,int endPre,int [] in,int startIn,int endIn) {
+        if(startPre>endPre || startIn>endIn){
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[startPre]);
+        for (int i=startIn;i<=endIn;i++){
+            if(in[i] == pre[startPre]){
+                root.left = reConstructBinaryTree(pre,startPre+1,startPre+i-startIn,in,startIn,i-1);
+                root.right = reConstructBinaryTree(pre,startPre+i-startIn+1,endPre,in,i+1,endIn);
+                break;
             }
         }
-        return stack2.pop();
+        return root;
     }
 
     public static void main(String[] args) {
-        Practice07 queue = new Practice07();
-        queue.push(1);
-        queue.push(2);
-        queue.push(3);
-        System.out.println(queue.pop());
-        System.out.println(queue.pop());
-        System.out.println(queue.pop());
+        Practice07 practice07 = new Practice07();
+
+        TreeNode treeNode = practice07.reConstructBinaryTree(new int[]{1, 2, 4, 7, 3, 5, 6, 8}, new int[]{4, 7, 2, 1, 5, 3, 8, 6});
     }
 }
