@@ -3,7 +3,7 @@ package codinginterview;
 import unit.Unit;
 
 /**
- * 数组中重复的数字
+ * 找出数组中重复的数字
  */
 public class Practice03 {
     /**
@@ -30,7 +30,7 @@ public class Practice03 {
      *
      * @param arr 输入数组
      * @param n 数组长度
-     * @return
+     * @return 重复数组或无重复数组标识
      */
     private int findRepeatNumber2(int [] arr,int n){
         for (int i = 0; i < n; i++) {
